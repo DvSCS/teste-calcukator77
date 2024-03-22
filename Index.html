@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Porcentagem Gay</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fce4ec;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 400px;
+      padding: 30px;
+      background-color: #fff;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #e91e63;
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      color: #555;
+      font-size: 18px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    input[type="text"] {
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin: 8px 0 20px;
+      border: none;
+      border-radius: 5px;
+      box-sizing: border-box;
+      border: 2px solid #e91e63;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #d81b60;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #e91e63;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #d81b60;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 24px;
+      color: #4CAF50;
+    }
+
+    #blackout {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+      display: none;
+      animation: blackoutFade 1s ease forwards;
+    }
+
+    @keyframes blackoutFade {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    #backgroundImage {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: auto;
+      z-index: 998;
+      display: none;
+      opacity: 0;
+      animation: imageFadeIn 1s ease forwards;
+    }
+
+    @keyframes imageFadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .text-overlay {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 24px;
+      font-weight: bold;
+      z-index: 1000;
+      display: none;
+      opacity: 0;
+      animation: textFadeIn 1s ease forwards;
+    }
+
+    @keyframes textFadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .container.terror {
+      transition: background-color 3s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="container">
+    <h1>Calculadora de Porcentagem <strong>Gay</strong></h1>
+    <label for="name">Digite seu nome:</label>
+    <input type="text" id="name" placeholder="Digite seu nome">
+    <button onclick="calculate()">Calcular</button>
+    <div id="result"></div>
+  </div>
+  <div id="blackout"></div>
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhU7TNHeB8pf71AIsB-1n-EwlmIegZwogPXFewNnUx7Q
+WKyeL400a0QOAvapGnYz6BeIvScrnU3cq4Gqau2vQIhAMOy6RAED_An4Y-se-pqA4XikCqFKTXkpL4uNYezETMvHVe4m7YqrUK_/s1600/IMG_0021.JPG" id="backgroundImage">
+  <div class="text-overlay">Você?</div>
+  <script>
+    function calculate() {
+      var container = document.getElementById("container");
+      container.classList.add('terror');
+
+      var nameInput = document.getElementById("name");
+      var name = nameInput.value.trim();
+      var newName = name === '' ? 'Deivis?' : 'Deivis?';
+      var result = document.getElementById("result");
+      result.style.display = 'inline-block';
+      result.innerHTML = '<span id="typing" class="typing-animation"></span>';
+      var typedText = document.getElementById('typing');
+      typedText.textContent = '';
+      var index = 0;
+      var typeInterval = setInterval(function() {
+        if (index < newName.length) {
+          typedText.textContent += newName.charAt(index);
+          typedText.classList.add('blink-caret');
+          index++;
+        } else {
+          clearInterval(typeInterval);
+          setTimeout(function() {
+            container.classList.remove('terror');
+            nameInput.value = '';
+            var count = 0;
+            var toggleInterval = setInterval(function() {
+              if (count % 2 == 0) {
+                result.innerHTML = newName;
+              } else {
+                result.innerHTML = 'Deivis, você é 100% gay.';
+              }
+              count++;
+              if (count>= 4) {
+                clearInterval(toggleInterval);
+              }
+            }, 500);
+          }, 2000);
+        }
+      }, 200);
+
+      setTimeout(function() {
+        var blackout = document.getElementById("blackout");
+        blackout.style.display = 'block';
+        blackout.style.animation = 'none';
+        
+        var backgroundImage = document.getElementById("backgroundImage");
+        backgroundImage.style.display = 'block';
+        backgroundImage.style.opacity = '1';
+        
+        var textOverlay = document.querySelector('.text-overlay');
+        textOverlay.style.display = 'block';
+        textOverlay.style.opacity = '1';
+        
+        setTimeout(function() {
+          var iframe = document.createElement('iframe');
+          iframe.src = 'https://www.youtube.com/embed/9eP2CdPHydE?autoplay=1&controls=0';
+          iframe.style.position = 'fixed';
+          iframe.style.top = '50%';
+          iframe.style.left = '50%';
+          iframe.style.transform = 'translate(-50%, -50%)';
+          iframe.style.width = '80%';
+          iframe.style.height = '80%';
+          iframe.style.zIndex = '1001'; 
+          document.body.appendChild(iframe);
+        }, 3000);
+      }, 5000);
+    }
+  </script>
+</body>
+</html>
